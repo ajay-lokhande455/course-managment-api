@@ -32,9 +32,9 @@ public class Course {
     @JsonManagedReference
     private List<CourseSchedule> schedules;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private List<Student> enrolledStudents;
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Student> students;
 
 
     public Long getId() {
@@ -73,7 +73,7 @@ public class Course {
         return schedules;
     }
 
-    public List<Student> getEnrolledStudents() {
-        return enrolledStudents;
+    public List<Student> getStudents() {
+        return students;
     }
 }

@@ -1,6 +1,5 @@
 package com.ajay.coursemanagementspring.controller;
 
-import com.ajay.coursemanagementspring.dto.CourseDetailsDTO;
 import com.ajay.coursemanagementspring.model.Course;
 import com.ajay.coursemanagementspring.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ public class CourseController {
     // Retrieve all courses
     @GetMapping
     public List<Course> getAllCourses() {
-        System.out.println(courseService.getAllCourses());
         return courseService.getAllCourses();
     }
 
@@ -30,21 +28,8 @@ public class CourseController {
 
     // Retrieve detailed course information
     @GetMapping("/details/{id}")
-    public CourseDetailsDTO getCourseDetails(@PathVariable Long id) {
-        Course course = courseService.getCourseById(id);
-
-        if (course == null) {
-            throw new RuntimeException("Course not found with ID: " + id);
-        }
-
-        CourseDetailsDTO dto = new CourseDetailsDTO();
-        dto.setCourses(List.of(course)); // Wrap the course in a list
-        dto.setInstructors(course.getInstructors());
-        dto.setCourseMaterials(course.getCourseMaterials());
-        dto.setSchedules(course.getSchedules());
-        dto.setEnrolledStudents(course.getEnrolledStudents());
-
-        return dto;
+    public Course getCourseDetails(@PathVariable Long id) {
+        return  courseService.getCourseById(id);
     }
 
     // Create a new course
